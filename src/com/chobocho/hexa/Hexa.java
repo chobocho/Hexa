@@ -83,6 +83,10 @@ public class Hexa implements IHexa {
         gameState.update();
     }
 
+    public void update() {
+        gameState.update();
+    }
+
     public void moveBottom() {
         gameState.moveBottom();
         gameState.update();

@@ -22,6 +22,8 @@ public interface IHexa {
 
     public void resume();
 
+    public void update();
+
     public int getWidth();
 
     public int getHeight();

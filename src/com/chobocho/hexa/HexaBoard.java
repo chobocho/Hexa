@@ -1,6 +1,7 @@
 package com.chobocho.hexa;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HexaBoard {
@@ -90,7 +91,7 @@ public class HexaBoard {
              checkRemoveBlock(currentBlock.x, currentBlock.y+i);
         }
 
-        while (removeBlockList.size() >= 3){
+        while (removeBlockList.size() >= 3) {
             removedBlock += removeBlock();
             checkRemoveBlock();
         }

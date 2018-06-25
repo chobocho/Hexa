@@ -5,12 +5,14 @@ public class HexaPlayState extends HexaGameState {
     private HexaBlock nextHexaBlock;
     private HexaBoard HexaBoard;
     private int additionalPoint = 1;
+    private boolean isProcessing = false;
 
     public HexaPlayState(Hexa hexa, HexaBoard board) {
         this.Hexa = hexa;
         this.HexaBoard = board;
         currentHexaBlock = HexaBlockFactory.create();
         nextHexaBlock = HexaBlockFactory.create();
+        this.isProcessing = false;
     }
 
     public void init() {
@@ -51,12 +53,14 @@ public class HexaPlayState extends HexaGameState {
     public void moveDown() {
         HexaLog.d("HexaPlayState.moveDown()");
         currentHexaBlock.moveDown();
-        if (HexaBoard.isAcceptable(currentHexaBlock) == false) {
+        if (this.isProcessing == false && HexaBoard.isAcceptable(currentHexaBlock) == false) {
+            this.isProcessing = true;
             currentHexaBlock.moveUp();
             HexaLog.d("Can not move down");
             fixCurrentBlock();
             updateBoard();
             updateBlock() ;
+            this.isProcessing = false;
         } else {
             HexaLog.d("Accept");
         }
@@ -87,30 +91,30 @@ public class HexaPlayState extends HexaGameState {
     }
 
     public void updateBoard() {
-        int removedLine = HexaBoard.arrange();
-        int point = calculatorScore(removedLine);
+        int removedBlock = HexaBoard.arrange();
+        int point = calculatorScore(removedBlock);
         Hexa.addSore(point);
     }
 
-    private int calculatorScore(int removedLineCount) {
-        if (removedLineCount == 0) {
+    private int calculatorScore(int removedBlock) {
+        if (removedBlock == 0) {
             additionalPoint = 1;
             return 0;
         }
 
-        int lineScore = 22;
-        if (removedLineCount >= 4) {
-            removedLineCount = 4;
-            lineScore = 888;
-        } else {
-            lineScore *= removedLineCount;
+        int lineScore = 30;
+        if (removedBlock > 20) {
+            removedBlock = 20;
         }
-        if (additionalPoint > 10000) {
-            additionalPoint = 10000;
+        if (removedBlock >= 4) {
+            lineScore *= Math.pow(2, removedBlock);
         }
-        additionalPoint <<= removedLineCount;
-        HexaLog.d("calculatorScore : " + additionalPoint + " : " + removedLineCount);
-        return  (removedLineCount * 10 * additionalPoint + lineScore);
+        if (additionalPoint > 100000) {
+            additionalPoint = 100000;
+        }
+        additionalPoint += lineScore;
+        HexaLog.d("calculatorScore : " + additionalPoint + " : " + removedBlock);
+        return  (additionalPoint + lineScore);
     }
 
     public HexaBlock getCurrentHexaBlock() {
