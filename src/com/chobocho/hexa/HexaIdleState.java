@@ -9,9 +9,9 @@ public class HexaIdleState extends HexaGameState {
     /**
      * Default constructor
      */
-    public HexaIdleState(Hexa Hexa) {
+    public HexaIdleState(Hexa hexa) {
         HexaLog.d("HexaIdleState()");
-        this.Hexa = Hexa;
+        this.hexa = hexa;
     }
     public boolean isIdleState() {
        return true;

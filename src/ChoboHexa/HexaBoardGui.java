@@ -54,7 +54,6 @@ public class HexaBoardGui extends JPanel {
     }
 
     public void update() {
-        // System.out.println("Tetris (d) View.update()");
         repaint();
     }
     private int blockWidth() { return (int) getSize().getWidth() / BOARD_WIDTH; }

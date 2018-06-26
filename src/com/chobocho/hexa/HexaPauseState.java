@@ -7,7 +7,7 @@ public class HexaPauseState extends HexaGameState {
      * Default constructor
      */
     public HexaPauseState(Hexa hexa) {
-        this.Hexa = hexa;
+        this.hexa = hexa;
     }
 
     public boolean isPauseState() { return true; }

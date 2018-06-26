@@ -1,7 +1,7 @@
 package com.chobocho.hexa;
 
 public abstract class HexaGameState {
-    protected IHexa Hexa;
+    protected IHexa hexa;
 
     public HexaGameState() {
     }
@@ -54,9 +54,8 @@ public abstract class HexaGameState {
     }
 
     public void update() {
-        HexaLog.d("HexaGameState.update()");
-        if (Hexa != null) {
-            Hexa.getObserver().update();
+        if (hexa != null) {
+            hexa.update();
         }
     }
 

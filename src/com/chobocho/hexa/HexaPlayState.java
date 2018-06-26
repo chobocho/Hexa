@@ -8,7 +8,7 @@ public class HexaPlayState extends HexaGameState {
     private boolean isProcessing = false;
 
     public HexaPlayState(Hexa hexa, HexaBoard board) {
-        this.Hexa = hexa;
+        this.hexa = hexa;
         this.HexaBoard = board;
         currentHexaBlock = HexaBlockFactory.create();
         nextHexaBlock = HexaBlockFactory.create();
@@ -52,8 +52,11 @@ public class HexaPlayState extends HexaGameState {
 
     public void moveDown() {
         HexaLog.d("HexaPlayState.moveDown()");
+        if (this.isProcessing) {
+            return;
+        }
         currentHexaBlock.moveDown();
-        if (this.isProcessing == false && HexaBoard.isAcceptable(currentHexaBlock) == false) {
+        if (HexaBoard.isAcceptable(currentHexaBlock) == false) {
             this.isProcessing = true;
             currentHexaBlock.moveUp();
             HexaLog.d("Can not move down");
@@ -93,7 +96,7 @@ public class HexaPlayState extends HexaGameState {
     public void updateBoard() {
         int removedBlock = HexaBoard.arrange();
         int point = calculatorScore(removedBlock);
-        Hexa.addSore(point);
+        hexa.addSore(point);
     }
 
     private int calculatorScore(int removedBlock) {

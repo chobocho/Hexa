@@ -31,6 +31,7 @@ public class PlayerOneDraw implements IPlayerDraw {
     }
 
     public void onDraw(Graphics g, int startX, int startY, int blockWidth, int blockHeight) {
+        HexaLog.d("onDraw");
         // Draw board
         int i = 0, j = 0;
 

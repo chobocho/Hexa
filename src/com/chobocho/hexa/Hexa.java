@@ -84,7 +84,9 @@ public class Hexa implements IHexa {
     }
 
     public void update() {
-        gameState.update();
+        if (observer != null) {
+            observer.update();
+        }
     }
 
     public void moveBottom() {
